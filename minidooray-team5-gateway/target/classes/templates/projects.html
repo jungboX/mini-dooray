@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>projects</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .container { border: 1px solid #ccc; padding: 20px; border-radius: 8px; background-color: #fff; max-width: 800px; margin: 20px auto; }
+        h1, h2, h3 { color: #333; }
+        .btn { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 10px; font-size: 1em; }
+        .btn:hover { background-color: #0056b3; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        table, th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .header { display: flex; justify-content: space-between; align-items: center; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <p>
+            <span th:text="${username}"></span>님이 포함된 프로젝트 목록<br />
+        </p>
+        <p><a href="/logout" class="btn">logout</a><br /></p>
+    </div>
+
+    <a href="/projects/form" class="btn">프로젝트 생성</a><br />
+
+    <table>
+        <thead> <tr>
+            <th>프로젝트</th>
+            <th>상태</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="project: ${projects}">
+            <td>
+                <a th:href="@{/projects/{id}(id=${project.id})}" th:text="${project.title}"></a>
+            </td>
+            <td th:text="${project.status().getDisplayName()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

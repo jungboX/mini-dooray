@@ -1,0 +1,38 @@
+### tag 생성
+POST http://localhost:8080/api/projects/1/tags
+Content-Type: application/json
+
+{
+  "content": "tag입니다.",
+  "projectId": 1
+}
+
+### taskTag 생성
+POST http://localhost:8080/api/projects/1/tasks/3/tags
+Content-Type: application/json
+
+{
+  "taskId": 1,
+  "tagId": 1
+}
+
+### taskTag 수정
+PUT http://localhost:8080/api/projects/1/tasks/4/tags/1
+Content-Type: application/json
+
+{
+  "taskId": 1,
+  "tagId": 2
+}
+
+### task 단일 조회
+GET http://localhost:8080/api/projects/1/tasks/4
+
+### task 생성
+POST http://localhost:8080/api/projects/1/tasks/4/tags
+Content-Type: application/json
+
+{
+  "taskId": 1,
+  "tagId": 1
+}

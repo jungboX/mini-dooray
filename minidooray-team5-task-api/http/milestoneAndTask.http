@@ -1,0 +1,49 @@
+### 마일 스톤 생성
+POST http://localhost:8080/api/projects/1/milestones
+Content-Type: application/json
+
+{
+  "content": "AOS/iOS 앱 개발 환경 설정 및 기초 디자인 완료",
+  "startedAt": "2025-11-06T14:00:00",
+  "endedAt": "2025-11-30T23:59:59",
+  "projectId": 1,
+  "username": "tester_user"
+}
+### 마일 스톤 수정
+PUT http://localhost:8080/api/projects/1/milestones/5
+Content-Type: application/json
+
+{
+  "content": "마일스톤 V1.1 기능 개선 및 안정화",
+  "startedAt": null,
+  "endedAt": "2025-12-31T23:59:59"
+}
+
+### 마일 스톤 삭제
+DELETE http://localhost:8080/api/projects/1/milestones/2
+
+
+### Task 생성
+POST http://localhost:8080/api/projects/1/tasks
+Content-Type: application/json
+
+{
+  "title": "task 제목",
+  "content": "task 내용",
+  "username": "이한음",
+  "milestoneID": 4
+}
+
+### Task 삭제
+DELETE http://localhost:8080/api/projects/1/tasks/3
+
+### Task 수정
+PUT http://localhost:8080/api/projects/1/tasks/4
+Content-Type: application/json
+
+{
+  "title": "task 수정",
+  "content": "task 수정",
+  "milestoneId": 3,
+  "tagIds": null
+}

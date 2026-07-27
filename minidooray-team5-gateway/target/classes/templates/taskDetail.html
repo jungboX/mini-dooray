@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 상세</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    .task-container { border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
+    .task-content { white-space: pre-wrap; /* 줄바꿈 유지를 위해 */ background-color: #f9f9f9; padding: 15px; border-radius: 5px; }
+    .comment-section { margin-top: 30px; }
+    .comment-list { list-style-type: none; padding-left: 0; }
+    .comment-item { border-top: 1px solid #eee; padding: 10px 0; }
+    .comment-item b { display: block; }
+    .comment-form { margin-top: 20px; }
+    .error { color: red; font-size: 0.9em; }
+    .comment-actions {
+      float: right; /* 버튼을 오른쪽으로 */
+    }
+    .comment-actions form,
+    .comment-actions button {
+      display: inline-block; /* 버튼들을 가로로 나열 */
+      margin-left: 5px;
+    }
+    .comment-actions input[type="submit"],
+    .comment-actions button {
+      padding: 2px 8px; /* 버튼 크기 축소 */
+      font-size: 0.9em;
+      margin-top: 0;
+    }
+    /* === [NEW] Task 수정/삭제 버튼을 위한 스타일 === */
+    .task-main-actions {
+      float: right; /* 오른쪽 정렬 */
+      margin-left: 10px;
+    }
+    .task-main-actions form,
+    .task-main-actions .button-link {
+      display: inline-block; /* 가로로 나열 */
+      margin-left: 5px;
+    }
+    /* '수정' (a 태그)을 버튼처럼 보이게 하는 스타일 */
+    .task-main-actions .button-link {
+      padding: 4px 10px;
+      font-size: 0.9em;
+      text-decoration: none;
+      background-color: #007bff;
+      color: white;
+      border: 1px solid #007bff;
+      border-radius: 4px;
+      line-height: 1.5; /* form 버튼과 높이 맞춤 */
+    }
+    .task-main-actions input[type="submit"] {
+      padding: 4px 10px;
+      font-size: 0.9em;
+      border: none;
+      border-radius: 4px;
+    }
+    /* === [NEW] 태그 리스트 스타일 === */
+    .tag-section {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #eee; /* 본문과 구분선 */
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px; /* 태그 사이의 간격 */
+      padding-left: 0;
+      margin: 0;
+      list-style-type: none; /* 리스트 점 제거 */
+    }
+    .tag-item {
+      display: inline-block;
+      background-color: #007bff; /* 태그 배경색 (기존 파란색과 통일) */
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px; /* 둥근 모서리 */
+      font-size: 0.9em;
+      text-decoration: none; /* 링크일 경우 밑줄 제거 */
+    }
+    /* === [NEW] 스타일 끝 === */
+  </style>
+</head>
+<body>
+
+<div class="task-container">
+
+  <div class="task-main-actions" th:if="${task.username == username}">
+
+    <a th:href="@{/projects/{id}/tasks/{taskId}/edit(id=${projectId}, taskId=${task.id()})}" class="button-link">수정</a>
+
+    <form th:method="delete"
+          th:action="@{#}"
+          style="display: inline-block;">
+      <input type="submit" value="삭제" style="background-color: #dc3545; color: white;"/>
+    </form>
+  </div>
+  <h1 th:text="${task.title}">Task 제목이 여기에 표시됩니다</h1>
+  <p>
+    <strong>작성자:</strong> <span th:text="${task.username}">작성자 이름</span> |
+    <strong>마일스톤:</strong>
+
+    <span th:if="${milestone != null}">
+
+        <span th:text="${milestone.content}">마일스톤 이름</span>
+
+        ( <span th:text="${#temporals.format(milestone.startedAt, 'yyyy-MM-dd HH:mm')}"></span>
+        ~
+        <span th:text="${#temporals.format(milestone.endedAt, 'yyyy-MM-dd HH:mm')}"></span> )
+    </span>
+
+    <span th:if="${milestone == null}">없음</span>
+  </p>
+
+  <hr>
+
+  <h3>본문</h3>
+  <div class="task-content">
+    <pre th:text="${task.content}">Task 본문 내용이 여기에 표시됩니다.</pre>
+  </div>
+
+  <div class="tag-section" th:if="${tags != null && !#lists.isEmpty(tags)}">
+    <h4>태그</h4>
+    <ul class="tag-list">
+      <li th:each="tag : ${tags}">
+        <span class="tag-item" th:text="${tag.content()}">Tag Content</span>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+
+<div class="comment-section">
+  <h2>댓글</h2>
+
+  <div th:if="${#lists.isEmpty(comments)}">
+    <p>등록된 댓글이 없습니다.</p>
+  </div>
+
+  <ul class="comment-list" th:unless="${#lists.isEmpty(comments)}">
+    <li class="comment-item" th:each="comment : ${comments}">
+
+      <div th:id="'comment-display-' + ${comment.id}">
+
+        <div class="comment-actions" th:if="${comment.username == username}">
+          <button type="button" th:onclick="'toggleEdit(' + ${comment.id} + ')'">수정</button>
+
+          <form th:method="delete"
+                th:action="@{{taskId}/comments/{commentId}(commentId=${comment.id}, taskId=${taskId})}"
+                style="display: inline-block;"> <input type="submit" value="삭제" style="background-color: #dc3545;"/>
+          </form>
+        </div>
+
+        <b th:text="${comment.username}">댓글 작성자</b>
+        <p th:text="${comment.content}">댓글 내용입니다.</p>
+      </div>
+
+      <form th:id="'comment-edit-' + ${comment.id}"
+            style="display:none;"
+            method="post" th:action="@{{taskId}/comments/{commentId}(commentId=${comment.id}, taskId=${taskId})}">
+
+        <input type="hidden" name="_method" value="put" />
+        <div>
+          <textarea name="content" rows="4" cols="80" th:text="${comment.content}"></textarea>
+        </div>
+        <div>
+          <input type="submit" value="수정 완료"/>
+          <button type="button" th:onclick="'toggleEdit(' + ${comment.id} + ')'">취소</button>
+        </div>
+      </form>
+
+    </li>
+  </ul>
+
+  <hr>
+
+  <script>
+    function toggleEdit(commentId) {
+      const displayDiv = document.getElementById('comment-display-' + commentId);
+      const editForm = document.getElementById('comment-edit-' + commentId);
+
+      if (displayDiv.style.display === 'none') {
+        displayDiv.style.display = 'block';
+        editForm.style.display = 'none';
+      } else {
+        displayDiv.style.display = 'none';
+        editForm.style.display = 'block';
+      }
+    }
+  </script>
+
+  <div class="comment-form">
+    <h3>댓글 작성</h3>
+    <form method="post" th:action="@{{taskId}/comments(taskId=${taskId})}" th:object="${commentRequest}">
+      <div>
+        <input type="hidden" th:field="*{username}" />
+        <textarea th:field="*{content}" rows="5" cols="80" placeholder="댓글을 입력하세요"></textarea><br/>
+        <span class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+      </div>
+      <div>
+        <input type="submit" value="댓글 등록"/>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

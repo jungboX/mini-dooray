@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 수정</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    .task-container { border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
+
+    /* === [NEW] 폼 요소 스타일 === */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+    .form-group input[type="text"],
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+    }
+    .form-group textarea {
+      font-family: sans-serif;
+      min-height: 250px;
+      resize: vertical; /* 세로로만 크기 조절 */
+    }
+
+    /* === [NEW] 폼 버튼 스타일 === */
+    .form-actions {
+      text-align: right;
+      margin-top: 20px;
+    }
+    .form-actions input[type="submit"],
+    .form-actions .button-cancel {
+      padding: 10px 20px;
+      font-size: 1em;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+    .form-actions input[type="submit"] {
+      background-color: #007bff;
+      color: white;
+    }
+    .form-actions .button-cancel {
+      background-color: #6c757d;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="task-container">
+
+  <form th:method="put" th:action="@{/projects/{projectId}/tasks/{taskId}(projectId=${projectId}, taskId=${task.id()})}">
+
+    <div class="form-group">
+      <label for="title">제목</label>
+      <input type="text" id="title" name="title" th:value="${task.title}" />
+    </div>
+
+    <p>
+      <strong>작성자:</strong> <span th:text="${task.username}">작성자 이름</span> |
+      <strong>마일스톤:</strong>
+
+      <select id="milestone" name="milestoneId"> <option value="">마일스톤 없음</option>
+        <option th:each="milestone: ${milestones}"
+                th:value="${milestone.id}"
+                th:text="${milestone.content}">
+        </option>
+      </select><br/>
+    <hr>
+
+    <div class="form-group">
+      <label for="content">본문</label>
+      <textarea id="content" name="content" th:text="${task.content}"></textarea>
+    </div>
+
+    <div>
+      <label>태그:</label> <div th:each="tag : ${tags}">
+      <input type="checkbox"
+             th:value="${tag.id}"
+             th:text="${tag.content}"
+             th:id="${'tag-' + tag.id}"
+             th:name="tagIds"
+      />
+    </div>
+    </div>
+
+    <div class="form-actions">
+      <a th:href="@{/projects/{projectId}/tasks/{taskId}(projectId=${projectId}, taskId=${task.id()})}" class="button-cancel">취소</a>
+      <input type="submit" value="수정 완료" />
+    </div>
+
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+### 프로젝트 생성
+POST http://localhost:8080/projects
+Content-Type: application/json
+
+{
+  "title": "새 프로젝트4",
+  "status": "ACTIVE"
+}
+
+### 프로젝트 목록 조회
+GET http://localhost:8080/projects?username=user
+
+### 특정 프로젝트 상세 조회
+GET http://localhost:8080/projects/3
+
+### 프로젝트 상태 변경
+PUT http://localhost:8080/projects/3/status
+Content-Type: application/json
+
+{
+  "newStatus": "SLEEP"
+}
+
+### 멤버 추가
+POST http://localhost:8080/projects/3/members
+Content-Type: application/json
+
+{
+  "adminUsername": "user",
+  "newMemberUsername": "member_user"
+}
+
+### 멤버 삭제
+DELETE http://localhost:8080/projects/3/members/member_user
+Content-Type: application/json
+{
+  "adminUsername": "admin_user"
+}

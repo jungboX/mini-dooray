@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/minidooray-team5-account-api/src/main/main.iml" filepath="$PROJECT_DIR$/minidooray-team5-account-api/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/minidooray-team5-gateway/src/main/main2.iml" filepath="$PROJECT_DIR$/minidooray-team5-gateway/src/main/main2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/minidooray-team5-task-api/src/main/main3.iml" filepath="$PROJECT_DIR$/minidooray-team5-task-api/src/main/main3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/mini-dooray.iml" filepath="$PROJECT_DIR$/.idea/mini-dooray.iml" />
+      <module fileurl="file://$PROJECT_DIR$/minidooray-team5-gateway/src/test/test.iml" filepath="$PROJECT_DIR$/minidooray-team5-gateway/src/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/minidooray-team5-task-api/src/test/test2.iml" filepath="$PROJECT_DIR$/minidooray-team5-task-api/src/test/test2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/minidooray-team5-account-api/src/test/test3.iml" filepath="$PROJECT_DIR$/minidooray-team5-account-api/src/test/test3.iml" />
+    </modules>
+  </component>
+</project>

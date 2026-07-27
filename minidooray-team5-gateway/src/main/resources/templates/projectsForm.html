@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>projectForm</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .container { border: 1px solid #ccc; padding: 20px; border-radius: 8px; background-color: #fff; max-width: 800px; margin: 20px auto; }
+        h1, h2, h3 { color: #333; }
+        form div { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], select { width: 95%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input[type="submit"] { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; font-size: 1em; }
+        input[type="submit"]:hover { background-color: #0056b3; }
+        .error { color: red; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>프로젝트 생성</h2>
+
+    <form method="post" th:action="@{/projects}">
+        <div>
+            <label for="title">프로젝트 이름:</label>
+            <input type="text" id="title" name="title"/>
+        </div>
+
+        <div>
+            <label for="status">상태:</label>
+            <select id="status" name="status">
+                <option value="ACTIVE" selected>활성</option>
+                <option value="SLEEP">휴면</option>
+                <option value="TERMINATE">종료</option>
+            </select>
+        </div>
+
+        <div>
+            <input type="submit" value="등록">
+        </div>
+    </form>
+</div>
+</body>
+</html>

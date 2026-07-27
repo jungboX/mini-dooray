@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MilestoneForm</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .container { border: 1px solid #ccc; padding: 20px; border-radius: 8px; background-color: #fff; max-width: 800px; margin: 20px auto; }
+        h1, h2, h3 { color: #333; }
+        form div { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="datetime-local"] { width: 95%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input[type="submit"] { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; font-size: 1em; }
+        input[type="submit"]:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>태그 생성</h2>
+    <form method="post" th:action="@{#}">
+        <div>
+            <label for="content">태그:</label>
+            <input type="text" id="content" name="content" /><br />
+        </div>
+        <div>
+            <input type="submit" value="등록">
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+### 댓글 생성
+POST http://localhost:8080/api/projects/1/tasks/4/comments
+Content-Type: application/json
+
+{
+  "taskId": 4,
+  "username": "tester_user",
+  "content": "이것은 새로운 댓글입니다."
+}
+### 댓글 단일 조회
+GET http://localhost:8080/api/projects/1/tasks/4/comments/1
+
+### 댓글 수정
+PUT http://localhost:8080/api/projects/1/tasks/4/comments/1
+Content-Type: application/json
+
+"수정된 댓글 내용입니다."
+
+### 댓글 삭제
+DELETE http://localhost:8080/api/projects/1/tasks/4/comments/1
+
+### 댓글 목록 조회
+GET http://localhost:8080/api/projects/1/tasks/4/comments

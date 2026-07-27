@@ -1,0 +1,29 @@
+### 사용자 생성
+POST localhost:8080/users
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "1234",
+  "email": "test@test.com"
+}
+
+### 사용자 목록 조회
+GET localhost:8080/users
+
+### 사용자 단건 조회
+GET localhost:8080/users/test
+
+### 없는 사용자 조회
+GET localhost:8080/users/unknown
+
+### 사용자 탈퇴
+DELETE localhost:8080/users/test
+
+### 로그인 시도 -> 암호화된 패스워드 반환
+GET localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "test"
+}

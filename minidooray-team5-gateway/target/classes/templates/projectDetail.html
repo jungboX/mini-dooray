@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>project home</title>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .container { border: 1px solid #ccc; padding: 20px; border-radius: 8px; background-color: #fff; max-width: 800px; margin: 20px auto; }
+        h1, h2, h3 { color: #333; }
+        form div { margin-bottom: 15px; }
+        input[type="text"] { width: 95%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input[type="submit"], button, .btn { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 10px; font-size: 1em; }
+        input[type="submit"]:hover, button:hover, .btn:hover { background-color: #0056b3; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        table, th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .section { margin-top: 30px; } /* 섹션 구분 */
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 th:text="${projectDetails.title} + ' 프로젝트'">Project Title</h2>
+
+    <div class="section">
+        <h3>Member 목록</h3>
+        <form method="post" th:action="@{/projects/{id}/members(id=${projectDetails.id})}">
+            <div>
+                <label for="username">멤버 추가:</label>
+                <input type="text" id="username" name="username" placeholder="추가할 멤버 이름">
+            </div>
+            <input type="submit" value="멤버추가">
+        </form>
+
+        <table>
+            <thead>
+            <tr>
+                <th>멤버 이름</th>
+                <th>동작</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mName: ${members}">
+                <td th:text="${mName}"></td>
+                <td>
+                    <form th:action="@{/projects/{id}/members/{username}(id=${projectDetails.id}, username=${mName})}" th:method="delete">
+                        <input type="submit" value="삭제" style="background-color: #dc3545;"> </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Task 목록</h3>
+        <a th:href="@{/projects/{id}/tasks(id=${projectDetails.id})}" class="btn">Task 생성</a>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Task 제목</th>
+                <th>동작</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task: ${tasks}">
+                <td>
+                    <a th:href="@{/projects/{projectId}/tasks/{taskId}(projectId=${projectDetails.id}, taskId=${task.id})}" th:text="${task.title}"></a>
+                </td>
+                <td>
+                    <form th:action="@{/projects/{id}/tasks/{taskId}(id=${projectDetails.id}, taskId=${task.id})}" th:method="delete">
+                        <input type="submit" value="삭제" style="background-color: #dc3545;"> </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Milestone 목록</h3>
+        <a th:href="@{/projects/{id}/milestones(id=${projectDetails.id})}" class="btn">마일스톤 생성</a>
+        <table>
+            <thead>
+            <tr>
+                <th>마일스톤 이름</th>
+                <th>동작</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="milestone: ${milestones}">
+                <td th:text="${milestone.content()}"></td>
+                <td>
+                    <form th:action="@{/projects/{id}/milestones/{milestoneId}(id=${projectDetails.id}, milestoneId=${milestone.id()})}" th:method="delete">
+                        <input type="submit" value="삭제" style="background-color: #dc3545;"> </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Tag 목록</h3>
+        <a th:href="@{/projects/{id}/tags(id=${projectDetails.id})}" class="btn">태그 생성</a>
+        <table>
+            <thead>
+            <tr>
+                <th>태그 이름</th>
+                <th>동작</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tag: ${tags}">
+                <td th:text="${tag.content}"></td>
+                <td>
+                    <form th:action="@{/projects/{id}/tags/{tagId}(id=${tag.projectId()}, tagId=${tag.id})}" th:method="delete">
+                        <input type="submit" value="삭제" style="background-color: #dc3545;"> </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+</body>
+</html>

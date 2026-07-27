@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="spring-miniDooray-0.0.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/minidooray-team5-gateway/target/spring-miniDooray-0.0.1-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

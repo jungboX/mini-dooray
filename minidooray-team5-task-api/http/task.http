@@ -1,0 +1,27 @@
+### 댓글 생성
+POST http://localhost:8080/api/projects/1/tasks/4/comments
+Content-Type: application/json
+
+{
+  "taskId": 4,
+  "username": "tester_user",
+  "content": "이것은 새로운 댓글입니다."
+}
+
+
+### 댓글 생성1
+POST http://localhost:8080/api/projects/1/tasks/4/comments
+Content-Type: application/json
+
+{
+  "taskId": 4,
+  "username": "ㄴㄴㄴtester_user",
+  "content": "이것은 ㄴㄴㄴ새로운 댓글입니다."
+}
+
+### 테스크 지울 떄 댓글 삭제
+DELETE http://localhost:8080/api/projects/1/tasks/4
+
+
+### 마일 스톤 삭제
+DELETE http://localhost:8080/api/projects/15/milestones/36

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 생성</title>
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <style>
+    body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+    .container { border: 1px solid #ccc; padding: 20px; border-radius: 8px; background-color: #fff; max-width: 800px; margin: 20px auto; }
+    h1, h2, h3 { color: #333; }
+    form div { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; }
+    input[type="text"], textarea, select { width: 95%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    textarea { min-height: 120px; }
+    input[type="submit"] { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; font-size: 1em; }
+    input[type="submit"]:hover { background-color: #0056b3; }
+    .error { color: red; font-size: 0.9em; }
+  </style>
+</head>
+<div class="container">
+  <h2>Task 생성</h2>
+  <form method="post" th:action="@{#}" th:object="${taskRequest}">
+
+    <div>
+      <label for="title">제목:</label>
+      <input type="text" id="title" th:field="*{title}"/><br />
+      <span class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    </div>
+
+    <div>
+      <label for="milestone">마일스톤:</label>
+      <select id="milestone" th:field="*{milestoneId}"> <option value="">마일스톤 없음</option>
+        <option th:each="milestone: ${milestones}"
+                th:value="${milestone.id}"
+                th:text="${milestone.content}">
+        </option>
+      </select><br/>
+    </div>
+
+    <div>
+      <label for="content">본문:</label>
+      <textarea id="content" th:field="*{content}" rows="10"></textarea><br />
+      <span class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+    </div>
+
+    <div>
+      <label>태그:</label> <div th:each="tag : ${tags}">
+      <input type="checkbox"
+             th:value="${tag.id}"
+             th:text="${tag.content}"
+             th:id="${'tag-' + tag.id}" />
+    </div>
+
+    </div>
+
+    <div>
+      <label for="username">등록자:</label>
+      <label id="username" th:text="${username}"/><br />
+    </div>
+      <input type="hidden" name="username" th:value="${username}"/>
+    <div>
+      <input type="submit" value="확인"/>
+    </div>
+  </form>
+</div>
+</html>

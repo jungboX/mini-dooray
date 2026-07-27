@@ -1,0 +1,120 @@
+/* 1. 기본 스타일 (taskMain 기반) */
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4; /* 배경색 추가 */
+}
+
+/* 2. 메인 컨테이너 (task-container 기반) */
+.container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    max-width: 800px; /* 가독성을 위한 너비 제한 */
+    margin: 20px auto; /* 중앙 정렬 */
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+/* 3. 폼 스타일 */
+form div {
+    margin-bottom: 15px; /* 폼 요소간 간격 */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="datetime-local"],
+textarea,
+select {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+/* 4. 버튼 스타일 (인라인 스타일 제거) */
+input[type="submit"],
+button,
+.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 1em;
+}
+
+input[type="submit"]:hover,
+button:hover,
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* 5. 테이블 스타일 (projectMain/project 기반) */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd; /* 부드러운 테두리 */
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2; /* 헤더 배경색 */
+}
+
+/* 6. 에러 메시지 스타일 (taskMain 기반) */
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+
+/* 7. 기본 링크 스타일 */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* login.html, signup.html 전용 (작은 폼) */
+.form-container-small {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    max-width: 400px; /* 더 작은 너비 */
+    margin: 40px auto; /* 위아래 여백 + 중앙 정렬 */
+}
+
+.form-container-small h2 {
+    text-align: center;
+}
+
+.form-container-small input[type="submit"] {
+    width: 100%; /* 버튼 너비 100% */
+}
